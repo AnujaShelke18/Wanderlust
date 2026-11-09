@@ -15,13 +15,14 @@
             <div class="navbar-nav">
                 <h1><a class="nav-link" href="/">Wanderlust</a></h1>
                 <a class="nav-link" href="/listings">Explore</a>
-                <a class="btn btn-search d-inline-flex align-items-center align-self-center ms-2" href="/risk-checker">
+                <a class="btn btn-search d-inline-flex align-items-center align-self-start align-self-md-center my-3 my-md-0 ms-md-2"
+                    href="/risk-checker">
                     <i class="fa-solid fa-shield-halved me-1"></i> Risk checker
                 </a>
             </div>
-
+            <hr class="d-md-none my-2">
             <!-- Middle: search + theme toggle, fixed gap -->
-            <div class="d-flex align-items-center gap-3 mx-auto">
+          <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center gap-3 mx-auto">
                 <form class="d-flex align-items-center search-form" role="search" action="/listings" method="get">
                     <input class="form-control me-2 flex-shrink-1 search-inp" type="search"
                         placeholder="Search destinations" aria-label="Search" name="q"
