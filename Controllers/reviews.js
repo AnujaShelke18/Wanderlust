@@ -3,6 +3,10 @@ const Listing = require("../models/listing.js");
 
 module.exports.postReview = async (req, res) => {
     let listing = await Listing.findById(req.params.id);
+    if(!listing){
+        req.flash("error", "Listing doesn't exist!");
+       return res.redirect(`/listings`);
+    }
     let newReview = new Review(req.body.review);
     newReview.author = req.user._id;
     listing.reviews.push(newReview);
@@ -15,10 +19,23 @@ module.exports.postReview = async (req, res) => {
 };
 
 module.exports.destroyReview = async (req, res) => {
-    let {id, reviewId} = req.params;
+let {id, reviewId} = req.params;
 await Listing.findByIdAndUpdate(req.params.id, { $pull: { reviews: req.params.reviewId } });
 await Review.findByIdAndDelete(req.params.reviewId);
 
 req.flash("success", "Review Deleted!");
 res.redirect(`/listings/${id}`);
 };  
+
+module.exports.editReview = async (req, res) => {
+    let {id, reviewId} = req.params;
+    const review = await Review.findById(reviewId);
+    res.render("reviews/edit.ejs", {listingId : id, review});
+}
+
+module.exports.updateReview = async (req, res) => {
+    let {id, reviewId} = req.params;
+    await Review.findByIdAndUpdate(reviewId,{ ...req.body.review });
+    req.flash("success", "Review Updated");
+    res.redirect(`/listings/${id}`);
+}

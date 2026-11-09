@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-4">
+  <div class="col-md-6 offset-md-3">
+    <div class="auth-card">
+      <h3 class="mb-2">Travel risk checker</h3>
+      <p class="text-muted mb-4">Enter where you're going and when, and get a quick safety summary.</p>
+      <form action="/risk-checker/result" method="GET">
+        <div class="mb-3">
+          <label for="destination" class="form-label">Destination:</label>
+          <input id="destination" name="destination" type="text" class="form-control"
+            placeholder="e.g. Italy, or Jaipur, India" required>
+        </div>
+        <div class="row">
+          <div class="mb-3 col-md-6">
+            <label for="start" class="form-label">From:</label>
+            <input id="start" name="start" type="date" class="form-control" required>
+          </div>
+          <div class="mb-3 col-md-6">
+            <label for="end" class="form-label">To:</label>
+            <input id="end" name="end" type="date" class="form-control" required>
+          </div>
+        </div>
+        <button class="btn btn-accent w-100">Check risk</button>
+      </form>
+    </div>
+  </div>
+</div>

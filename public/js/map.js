@@ -8,11 +8,18 @@ if (listing.geometry && listing.geometry.coordinates) {
     zoom: 9
   });
 
+  const box = document.createElement("div");
+  const heading = document.createElement("h4");
+  const msg = document.createElement("p");
+  heading.textContent = listing.title;
+  msg.textContent = "Exact location will be provided after booking";
+  box.appendChild(heading);
+  box.appendChild(msg);
   new mapboxgl.Marker({ color: "red" })
     .setLngLat(listing.geometry.coordinates)
     .setPopup(
       new mapboxgl.Popup({ offset: 25 })
-        .setHTML(`<h4>${listing.title}</h4><p>Exact location will be provided after booking</p>`)
+    .setDOMContent(box)
     )
     .addTo(map);
 } else {

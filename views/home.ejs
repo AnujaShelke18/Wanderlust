@@ -1,0 +1,144 @@
+<% layout("layouts/boilerplate") %>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Find a stay that feels like a getaway</h1>
+    <p class="mb-4">Browse unique homes, cabins and villas, or list your own place for travellers to discover.</p>
+    <a href="/listings" class="btn btn-accent btn-lg">Explore stays</a>
+    <a href="/risk-checker" class="btn btn-accent btn-lg ms-2">Check travel risk</a>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="section">
+  <div class="section-title">
+    <span>Browse</span>
+    <h2>Pick your kind of trip</h2>
+  </div>
+  <div class="row g-4">
+    <div class="col-6 col-md-3">
+      <a href="/listings?category=Amazing pools" class="category-tile d-block">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <h5>Beach</h5>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="/listings?category=Mountains" class="category-tile d-block">
+        <i class="fa-solid fa-mountain"></i>
+        <h5>Mountains</h5>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="/listings?category=Iconic cities" class="category-tile d-block">
+        <i class="fa-solid fa-city"></i>
+        <h5>City</h5>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="/listings?category=Camping" class="category-tile d-block">
+        <i class="fa-solid fa-tree"></i>
+        <h5>Nature</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section">
+  <div class="section-title">
+    <span>Why Wanderlust</span>
+    <h2>Everything you need to plan a stay</h2>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="feature-card">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <h5>See where you'll be</h5>
+        <p class="text-muted mb-0">Every listing shows its location on a map before you decide.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-card">
+        <i class="fa-solid fa-star"></i>
+        <h5>Read guest reviews</h5>
+        <p class="text-muted mb-0">Check what other travellers said about a place first.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-card">
+        <i class="fa-solid fa-house"></i>
+        <h5>Host your own place</h5>
+        <p class="text-muted mb-0">Add a property with photos and a price in a few minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Risk checker -->
+<section class="section">
+  <div class="row align-items-center g-4">
+    <div class="col-md-6">
+      <div class="section-title text-md-start mb-3">
+        <span>New</span>
+        <h2>Check before you go</h2>
+      </div>
+      <p class="text-muted">
+        Enter a destination and your travel dates, and get a quick summary of what to expect: seasonal
+        conditions like monsoon or hurricane season, health tips, and common-sense safety notes.
+      </p>
+      <a href="/risk-checker" class="btn btn-accent btn-lg mt-2">
+        <i class="fa-solid fa-shield-halved me-2"></i>Try the risk checker
+      </a>
+    </div>
+    <div class="col-md-6">
+      <div class="feature-card">
+        <i class="fa-solid fa-calendar-days"></i>
+        <h5>Based on your dates</h5>
+        <p class="text-muted">The same place can look different in July than in January, so the summary follows
+          your trip.</p>
+        <i class="fa-solid fa-circle-info mt-3"></i>
+        <h5>Clear risk level</h5>
+        <p class="text-muted mb-0">A Low, Moderate or Elevated rating, with the reasons listed underneath.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured stays -->
+<% if (featured && featured.length > 0) { %>
+<section class="section">
+  <div class="section-title">
+    <span>Featured</span>
+    <h2>Stays to start with</h2>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+    <% for (let listing of featured) { %>
+      <div class="card col listing-card">
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none">
+          <img src="<%= listing.image?.url || '/images/default.jpg' %>" class="card-img-top listing-img"
+            alt="<%= listing.title || 'Listing' %>">
+          <div class="card-body">
+            <p class="card-text">
+              <strong><%= listing.title || 'Untitled Listing' %></strong><br>
+              &#8377; <%= listing.price?.toLocaleString("en-IN") || 'N/A' %> /night
+            </p>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+  <div class="text-center mt-4">
+    <a href="/listings" class="btn btn-accent">See all stays</a>
+  </div>
+</section>
+<% } %>
+
+<!-- Call to action -->
+<section class="section">
+  <div class="cta-band">
+    <h2>Have a place to share?</h2>
+    <p class="mb-4">List your property and start hosting.</p>
+    <a href="/listings/new" class="btn btn-light btn-lg">Add your property</a>
+  </div>
+</section>

@@ -3,22 +3,22 @@
 <div class="row mt-3">
     <div class="col-7 offset-2">
     <h3>Edit Your Listing</h3>
-<form 
+<form
     method="POST"
-    action="/listings/<%= listing._id %>?_method=PUT" 
-    class="needs-validation" 
+    action="/listings/<%= listing._id %>?_method=PUT"
+    class="needs-validation"
     novalidate
     enctype="multipart/form-data">
 
     <!-- Title -->
     <div class="mb-3">
         <label for="title" class="form-label">Title:</label>
-        <input 
-            id="title" 
-            name="listing[title]" 
-            value="<%= listing.title %>" 
-            type="text" 
-            class="form-control" 
+        <input
+            id="title"
+            name="listing[title]"
+            value="<%= listing.title %>"
+            type="text"
+            class="form-control"
             required>
             <div class="invalid-feedback">Title shouldn't be empty</div>
     </div>
@@ -26,10 +26,10 @@
     <!-- Description -->
     <div class="mb-3">
         <label for="description" class="form-label">Description:</label>
-        <textarea 
-            id="description" 
-            name="listing[description]" 
-            class="form-control" 
+        <textarea
+            id="description"
+            name="listing[description]"
+            class="form-control"
             required><%= listing.description %></textarea>
             <div class="invalid-feedback">please write the description</div>
     </div>
@@ -38,20 +38,19 @@
     <% if (listing.image.url) { %>
         <div class="mb-3">
             <label class="form-label">Current Image:</label>
-            <img src="<%= originalImageUrl %>" class="img-fluid mb-2" style="max-height: 200px";>
+            <img src="<%= originalImageUrl %>" class="img-fluid mb-2" style="max-height: 200px;">
             <input type="hidden" name="listing[image][url]" value="<%= listing.image.url %>">
-            <!-- <input type="hidden" name="listing[image][filename]" value="<%= listing.image.filename %>">
-        </div> 
+        </div>
     <% } %>
 
     <!-- Image -->
     <div class="mb-3">
         <label for="image" class="form-label">Upload New Image:</label>
-        <input 
-            id="image" 
-            name="listing[image]"  
-            type="file" 
-            class="form-control" 
+        <input
+            id="image"
+            name="listing[image]"
+            type="file"
+            class="form-control"
             />
     </div>
 
@@ -59,14 +58,14 @@
     <div class="row">
     <div class="mb-3 col-md-4">
         <label for="price" class="form-label">Price:</label>
-        <input 
-            id="price" 
-            name="listing[price]" 
-            value="<%= listing.price %>" 
-            type="number" 
-            class="form-control" 
-            min="0" 
-            step="1" 
+        <input
+            id="price"
+            name="listing[price]"
+            value="<%= listing.price %>"
+            type="number"
+            class="form-control"
+            min="0"
+            step="1"
             required>
             <div class="invalid-feedback">Price can't be empty</div>
     </div>
@@ -74,12 +73,12 @@
     <!-- Country -->
     <div class="mb-3 col-md-8">
         <label for="country" class="form-label">Country:</label>
-        <input 
-            id="country" 
-            name="listing[country]" 
-            value="<%= listing.country %>" 
-            type="text" 
-            class="form-control" 
+        <input
+            id="country"
+            name="listing[country]"
+            value="<%= listing.country %>"
+            type="text"
+            class="form-control"
             required>
             <div class="invalid-feedback">Country name is required</div>
     </div>
@@ -88,20 +87,34 @@
     <!-- Location -->
     <div class="mb-3">
         <label for="location" class="form-label">Location:</label>
-        <input 
-            id="location" 
-            name="listing[location]" 
-            value="<%= listing.location %>" 
-            type="text" 
-            class="form-control" 
+        <input
+            id="location"
+            name="listing[location]"
+            value="<%= listing.location %>"
+            type="text"
+            class="form-control"
             required>
             <div class="invalid-feedback">Location is required</div>
+    </div>
+
+    <!-- Category -->
+    <div class="mb-3">
+        <label for="category" class="form-label">Category:</label>
+        <select
+            id="category"
+            name="listing[category]"
+            class="form-select"
+            required>
+            <option value="" disabled <%= !listing.category ? "selected" : "" %>>Choose a category</option>
+            <% const categories = ["Trending", "Rooms", "Iconic cities", "Mountains", "Camping", "Castles", "Amazing pools", "Arctic", "Hidden gems", "Nightlife"]; %>
+            <% for (let c of categories) { %>
+                <option value="<%= c %>" <%= listing.category === c ? "selected" : "" %>><%= c %></option>
+            <% } %>
+        </select>
+        <div class="invalid-feedback">Please choose a category.</div>
     </div>
 
     <button type="submit" class="btn btn-dark edit-btn">Update Listing</button>
 </form>
     </div>
-</div> 
-
-
-
+</div>

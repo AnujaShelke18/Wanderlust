@@ -15,6 +15,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [-118.7798, 34.0259],
     },
+    category: "Trending",
   },
   {
     title: "Modern Loft in Downtown",
@@ -32,6 +33,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [-74.006, 40.7128],
     },
+    category: "Iconic cities",
   },
   {
     title: "Mountain Retreat",
@@ -49,6 +51,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [-106.8187, 39.1911],
     },
+    category: "Mountains",
   },
   {
     title: "Historic Villa in Tuscany",
@@ -66,6 +69,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [11.2558, 43.7696],
     },
+    category: "Castles",
   },
   {
     title: "Secluded Treehouse Getaway",
@@ -83,6 +87,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [-122.6765, 45.5231],
     },
+    category: "Camping",
   },
   {
     title: "Beachfront Paradise",
@@ -100,6 +105,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [-86.8515, 21.1619],
     },
+    category: "Amazing pools",
   },
   {
     title: "Luxury Penthouse with City Views",
@@ -117,6 +123,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [-118.2437, 34.0522],
     },
+    category: "Nightlife",
   },
   {
     title: "Safari Lodge in the Serengeti",
@@ -134,6 +141,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [34.6857, -2.3333],
     },
+    category: "Hidden gems",
   },
   {
     title: "Historic Canal House",
@@ -151,6 +159,7 @@ const sampleListings = [
       type: "Point",
       coordinates: [4.9041, 52.3676],
     },
+    category: "Iconic cities",
   },
 ];
 

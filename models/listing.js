@@ -27,6 +27,10 @@ const listingSchema = new Schema({
     country: {
         type: String,
     },
+    category:{
+       type: String,
+       enum: ['Iconic cities', 'Mountains', 'Camping', 'Castles', 'Amazing pools', 'Arctic', 'Hidden gems', 'Nightlife', 'Trending', 'Rooms']
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -47,11 +51,12 @@ const listingSchema = new Schema({
       type: [Number],
       required: true
     },
-    }
+}
+    
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {
-    if (listing.reviews.length) {
+    if (listing) {
         await Review.deleteMany({ _id: { $in: listing.reviews } });
     }
 });

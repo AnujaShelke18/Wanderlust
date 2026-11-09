@@ -3,11 +3,32 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+const escapeRegex = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 // Show all listings
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("./listings/index.ejs", { allListings });
+  const { q, category } = req.query;
+  let filter = {};
+
+  if (typeof q === "string" && q.trim()) {
+    const safeQ = escapeRegex(q.trim());
+    filter = {
+      $or: [
+        { location: { $regex: safeQ, $options: "i" } },
+        { country: { $regex: safeQ, $options: "i" } },
+        { title: { $regex: safeQ, $options: "i" } },
+      ],
+    };
+  }
+
+  if (category) {
+    filter.category = category;
+  }
+
+  const allListings = await Listing.find(filter);
+  res.render("./listings/index.ejs", { allListings, category });
 };
+
 
 // Render new listing form
 module.exports.renderNewForm = (req, res) => {
@@ -29,7 +50,7 @@ module.exports.showListing = async (req, res) => {
     return res.redirect("/listings");
   }
 
-  // ✅ Pass mapToken to EJS for client-side access
+  //  Pass mapToken to EJS for client-side access
   res.render("listings/show.ejs", { listing, mapToken });
 };
 
@@ -112,12 +133,26 @@ module.exports.updateListing = async (req, res) => {
 
   const { listing: listingData } = req.body;
 
+  if (listingData.location && listingData.location !== listing.location) {
+  const geoResponse = await geocodingClient
+    .forwardGeocode({ query: listingData.location, limit: 1 })
+    .send();
+
+  if (geoResponse.body.features.length === 0) {
+    req.flash("error", "Invalid location! Try another one.");
+    return res.redirect(`/listings/${id}/edit`);
+  }
+
+  listing.geometry = geoResponse.body.features[0].geometry;
+}
+
   Object.assign(listing, {
     title: listingData.title || listing.title,
     description: listingData.description || listing.description,
     price: listingData.price || listing.price,
     location: listingData.location || listing.location,
     country: listingData.country || listing.country,
+    category: listingData.category || listing.category,
   });
 
   if (req.file) {

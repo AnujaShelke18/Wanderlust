@@ -1,28 +1,35 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <h1 class="col-7 offset-2" >Login on Travel-Paglu</h1>
-    <div class="col-7 offset-2">
-        <form action="/login" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username:</label>
-                <input 
-                    name="username" 
-                    id="username"
-                    type="text" 
-                    class="form-control" 
-                    required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input 
-                    name="password" 
-                    id="password"
-                    type="password" 
-                    class="form-control" 
-                    required>
-            </div>
-            <button class="btn btn-success">Login</button>
-        </form>
+<div class="row mt-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="auth-card">
+            <h3 class="mb-4">Welcome back</h3>
+            <form action="/login" method="POST" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input
+                        name="username"
+                        id="username"
+                        type="text"
+                        class="form-control"
+                        required>
+                    <div class="invalid-feedback">Please enter your username.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input
+                        name="password"
+                        id="password"
+                        type="password"
+                        class="form-control"
+                        required>
+                    <div class="invalid-feedback">Please enter password.</div>
+                </div>
+                <button class="btn btn-accent w-100">Login</button>
+            </form>
+            <p class="text-center text-muted mt-3 mb-0">
+                New here? <a href="/signup">Sign up</a>
+            </p>
+        </div>
     </div>
-</div> 
+</div>

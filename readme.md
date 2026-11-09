@@ -1,4 +1,4 @@
-# Travel-Paglu
+# Wanderlust
 
 A community-driven travel and stay platform that connects hosts with guests and provides a personalized approach to travel planning.  
 

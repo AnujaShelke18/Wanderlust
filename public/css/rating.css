@@ -195,3 +195,8 @@
     -webkit-transition: background-position .7s;
     transition: background-position .7s;
   } 
+
+  .starability-slot,
+  .starability-result {
+    zoom: 0.75;
+}

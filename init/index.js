@@ -1,27 +1,46 @@
-const mongoose = require("mongoose");
-const initData = require("./data.js");
-const Listing = require("../models/listing.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/Wanderlust";
-mongoose.set('debug', true);
-
-main()
-.then(() => {
-   console.log("Connected to DB"); 
-})
-.catch((err) => {
-    console.log(err);
+require("dotenv").config({
+    path: require("path").resolve(__dirname, "../.env")
 });
 
+const mongoose = require("mongoose");
+const Listing = require("../models/listing.js");
+const User = require("../models/user.js");
+const initData = require("./data.js");
+
+const dbUrl = process.env.ATLASDB_URL;
+
 async function main() {
-    await mongoose.connect(MONGO_URL);
-}
+    if (!dbUrl) {
+        throw new Error("ATLASDB_URL not found in .env");
+    }
 
-const initDB = async () => {
+    await mongoose.connect(dbUrl);
+    console.log("Connected to Atlas DB");
+
+    const user = await User.findOne();
+
+    if (!user) {
+        throw new Error("No registered user found in Atlas!");
+    }
+
     await Listing.deleteMany({});
-    initData.data = initData.data.map((obj) => ({...obj, owner: "67daf57a2bad18615a4267d7"}));
-    await Listing.insertMany(initData.data);
-    console.log("Data was initialized");
+
+    const updatedListings = initData.data.map((listing) => ({
+        ...listing,
+        owner: user._id
+    }));
+
+    await Listing.insertMany(updatedListings);
+
+    console.log("Listings initialized successfully!");
 }
 
-initDB();  
+main()
+    .catch((err) => {
+        console.error("Initialization failed:", err);
+        process.exitCode = 1;
+    })
+    .finally(async () => {
+        await mongoose.connection.close();
+    });

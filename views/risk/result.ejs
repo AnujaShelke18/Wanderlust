@@ -1,0 +1,41 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-4">
+  <div class="col-md-8 offset-md-2">
+    <div class="auth-card">
+      <h3 class="mb-1"><%= destination %></h3>
+      <p class="text-muted"><%= start %> to <%= end %> (<%= days %> day<%= days === 1 ? "" : "s" %>)</p>
+
+      <% if (result.found) { %>
+        <p>
+          <span class="risk-badge risk-<%= ["low", "moderate", "elevated"][result.level] %>">
+            <%= result.levelName %> risk
+          </span>
+          <span class="text-muted ms-2">for <%= result.country %></span>
+        </p>
+
+        <% if (result.seasonal.length > 0) { %>
+          <h5 class="mt-4">During your dates</h5>
+          <ul>
+            <% for (let note of result.seasonal) { %><li><%= note %></li><% } %>
+          </ul>
+        <% } %>
+
+        <h5 class="mt-4">General tips</h5>
+        <ul>
+          <% for (let note of result.notes) { %><li><%= note %></li><% } %>
+        </ul>
+      <% } else { %>
+        <p>We don't have a summary for that destination yet. Check the official advisories below.</p>
+      <% } %>
+
+      <p class="text-muted small mt-4">
+        This is general guidance, not a live safety advisory. Always check official sources before you travel:
+        <a href="https://travel.state.gov" target="_blank" rel="noopener">US State Department</a> and
+        <a href="https://www.gov.uk/foreign-travel-advice" target="_blank" rel="noopener">UK Foreign Office</a>.
+      </p>
+
+      <a href="/risk-checker" class="btn btn-accent">Check another trip</a>
+    </div>
+  </div>
+</div>

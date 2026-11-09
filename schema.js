@@ -12,7 +12,11 @@ module.exports.listingSchema = Joi.object({
             Joi.object({
                 url: Joi.string().uri().required()
             }).allow(null) // If it's an object with the 'url' property
-        )
+        ),
+        category: Joi.string().valid(
+            "Trending", "Rooms", "Iconic cities", "Mountains", "Camping",
+            "Castles", "Amazing pools", "Arctic", "Hidden gems", "Nightlife"
+        ).required(),
     }).required()
 });
 
