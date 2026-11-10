@@ -4,7 +4,9 @@
   <div class="col-md-8 offset-md-2">
     <div class="auth-card">
       <h3 class="mb-1"><%= destination %></h3>
-      <p class="text-muted"><%= start %> to <%= end %> (<%= days %> day<%= days === 1 ? "" : "s" %>)</p>
+      <p class="text-muted">
+        <%= start %> to <%= end %> (<%= days %> day<%= days === 1 ? "" : "s" %>)
+      </p>
 
       <% if (result.found) { %>
         <p>
@@ -14,16 +16,22 @@
           <span class="text-muted ms-2">for <%= result.country %></span>
         </p>
 
+        <h5 class="mt-4">During your dates</h5>
         <% if (result.seasonal.length > 0) { %>
-          <h5 class="mt-4">During your dates</h5>
           <ul>
-            <% for (let note of result.seasonal) { %><li><%= note %></li><% } %>
+            <% for (let note of result.seasonal) { %>
+              <li><%= note %></li>
+            <% } %>
           </ul>
+        <% } else { %>
+          <p class="text-muted">No seasonal concerns on record for these dates.</p>
         <% } %>
 
         <h5 class="mt-4">General tips</h5>
         <ul>
-          <% for (let note of result.notes) { %><li><%= note %></li><% } %>
+          <% for (let note of result.notes) { %>
+            <li><%= note %></li>
+          <% } %>
         </ul>
       <% } else { %>
         <p>We don't have a summary for that destination yet. Check the official advisories below.</p>
